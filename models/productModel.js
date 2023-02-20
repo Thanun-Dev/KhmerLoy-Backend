@@ -28,7 +28,6 @@ var productSchema = new mongoose.Schema(
     },
     brand: {
       type: String,
-      enum: ["Apple", "Samsung", "Microsoft", "Lenovo", "Asus"],
       required: true,
     },
     quantity: {
@@ -45,10 +44,7 @@ var productSchema = new mongoose.Schema(
         url: String,
       },
     ],
-    color: {
-      type: String,
-      enum: ["Black", "Brown", "Silver", "White", "Blue"],
-    },
+    color: [],
     tags: String,
     ratings: [
       {

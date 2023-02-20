@@ -2,6 +2,8 @@ const multer = require("multer");
 const sharp = require("sharp");
 const path = require("path");
 const fs = require("fs");
+
+//Upload from local
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, path.join(__dirname, "../public/images/"));
@@ -12,6 +14,7 @@ const storage = multer.diskStorage({
   },
 });
 
+//
 const multerFilter = (req, file, cb) => {
   if (file.mimetype.startsWith("image")) {
     cb(null, true);
@@ -20,12 +23,14 @@ const multerFilter = (req, file, cb) => {
   }
 };
 
+//Upload image
 const uploadPhoto = multer({
   storage: storage,
   fileFilter: multerFilter,
   limits: { fileSize: 1000000 },
 });
 
+//Resize product image
 const productImgResize = async (req, res, next) => {
   if (!req.files) return next();
   await Promise.all(
@@ -41,6 +46,7 @@ const productImgResize = async (req, res, next) => {
   next();
 };
 
+//Resize blog image
 const blogImgResize = async (req, res, next) => {
   if (!req.files) return next();
   await Promise.all(

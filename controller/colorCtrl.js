@@ -2,6 +2,7 @@ const Color = require("../models/colorModel");
 const asyncHandler = require("express-async-handler");
 const validateMongoDbId = require("../utils/validateMongodbId");
 
+//Create a new color
 const createColor = asyncHandler(async (req, res) => {
   try {
     const newColor = await Color.create(req.body);
@@ -10,6 +11,8 @@ const createColor = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
+//Update a color
 const updateColor = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
@@ -22,6 +25,8 @@ const updateColor = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
+//Delete a color
 const deleteColor = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
@@ -32,6 +37,8 @@ const deleteColor = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
+//Get a color
 const getColor = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
@@ -42,6 +49,8 @@ const getColor = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
+//Get all color
 const getallColor = asyncHandler(async (req, res) => {
   try {
     const getallColor = await Color.find();

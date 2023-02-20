@@ -2,6 +2,7 @@ const Category = require("../models/blogCatModel");
 const asyncHandler = require("express-async-handler");
 const validateMongoDbId = require("../utils/validateMongodbId");
 
+//Create a new category
 const createCategory = asyncHandler(async (req, res) => {
   try {
     const newCategory = await Category.create(req.body);
@@ -10,6 +11,8 @@ const createCategory = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
+//Update a category
 const updateCategory = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
@@ -22,6 +25,8 @@ const updateCategory = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
+//Delete a category
 const deleteCategory = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
@@ -32,6 +37,8 @@ const deleteCategory = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
+//Get a category
 const getCategory = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
@@ -42,6 +49,8 @@ const getCategory = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
+//Get all category
 const getallCategory = asyncHandler(async (req, res) => {
   try {
     const getallCategory = await Category.find();

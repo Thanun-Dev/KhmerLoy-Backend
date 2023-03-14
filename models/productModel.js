@@ -34,6 +34,14 @@ var productSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    count: {
+      type: Number,
+      default: 0,
+    },
+    stock: {
+      type: Number,
+      default: 0,
+    },
     sold: {
       type: Number,
       default: 0,

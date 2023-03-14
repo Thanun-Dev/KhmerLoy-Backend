@@ -19,12 +19,25 @@ const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const cors = require("cors");
 
+//Handling uncaught exceptions
+process.on("uncaughtException", (err) => {
+  console.log(`Error: ${err.message}`);
+  console.log("Shutting down the server due to Uncaught Exception");
+  //Close server & exit process
+  process.exit(1);
+});
+
+//Database Connection
 dbConnect();
+
+//Middlewares
 app.use(morgan("dev"));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+//Routes
 app.use("/api/user", authRouter);
 app.use("/api/product", productRouter);
 app.use("/api/blog", blogRouter);
@@ -36,8 +49,19 @@ app.use("/api/color", colorRouter);
 app.use("/api/enquiry", enqRouter);
 app.use("/api/upload", uploadRouter);
 
+//Error Handler
 app.use(notFound);
 app.use(errorHandler);
+
+//Server
 app.listen(PORT, () => {
   console.log(`Server is running  at PORT ${PORT}`);
+});
+
+//Unhandled Promise Rejection
+process.on("unhandledRejection", (err) => {
+  console.log(`Error: ${err.message}`);
+  console.log("Shutting down the server due to Unhandled Promise Rejection");
+  //Close server & exit process
+  server.close(() => process.exit(1));
 });
